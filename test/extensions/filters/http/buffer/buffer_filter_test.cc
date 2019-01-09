@@ -130,6 +130,9 @@ TEST_F(BufferFilterTest, RouteDisabledConfigOverride) {
 
   Http::TestHeaderMapImpl headers;
   EXPECT_EQ(Http::FilterHeadersStatus::Continue, filter_.decodeHeaders(headers, false));
+
+  Buffer::OwnedImpl data("hello world");
+  EXPECT_EQ(Http::FilterDataStatus::Continue, filter_.decodeData(data, false));
 }
 
 } // namespace BufferFilter

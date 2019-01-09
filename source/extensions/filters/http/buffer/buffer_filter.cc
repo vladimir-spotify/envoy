@@ -84,6 +84,11 @@ Http::FilterDataStatus BufferFilter::decodeData(Buffer::Instance&, bool end_stre
     return Http::FilterDataStatus::Continue;
   }
 
+  if (settings_->disabled()) {
+    // The filter has been disabled for this route.
+    return Http::FilterDataStatus::Continue;
+  }
+
   // Buffer until the complete request has been processed or the ConnectionManagerImpl sends a 413.
   return Http::FilterDataStatus::StopIterationAndBuffer;
 }
